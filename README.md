@@ -14,13 +14,9 @@
 
 ## 如：近期拜年应用
 
-可使用 `php artisan bainian` 执行全部联系人群发拜年
-
-![启动拜年]("https://github.com/webshiyue/laravel-wechat-robot-personal/blob/master/storage/sample/bainian.png")
-
-或者实现：点击对话自动发送 `预设的祝福`、联系人回复消息自动发送 `预设的回应`
-
-![拜年ing]("https://github.com/webshiyue/laravel-wechat-robot-personal/blob/master/storage/sample/bainian_ing.png")
+* 可使用 `php artisan bainian` 执行全部联系人群发拜年
+* 或者实现：点击对话自动发送 `预设的祝福`、联系人回复消息自动发送 `预设的回应` 
+* 截图：[启动拜年]("https://github.com/webshiyue/laravel-wechat-robot-personal/blob/master/storage/sample/bainian.png") 、[拜年ing]("https://github.com/webshiyue/laravel-wechat-robot-personal/blob/master/storage/sample/bainian_ing.png")
 
 
 ## 环境
@@ -128,6 +124,13 @@ php artisan key:generate
 
 * 感谢 [Hanson](https://github.com/HanSon) 构建了基础组件 [HanSon/vbot](https://github.com/HanSon/vbot)
 * 感谢企鹅群 492548647 内所有伙伴的交流碰撞
+
+
+## 打赏支持
+
+* [给买一颗糖](https://github.com/webshiyue/laravel-wechat-robot-personal/blob/master/storage/sample/donate666.png)
+* [给买一包糖](https://github.com/webshiyue/laravel-wechat-robot-personal/blob/master/storage/sample/donate6666.png)
+* [土豪任性赏](https://github.com/webshiyue/laravel-wechat-robot-personal/blob/master/storage/sample/donate.png)
 
 
 ## License
