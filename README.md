@@ -12,7 +12,7 @@
 * 受益于 laravel 的 artisan 特性，可使用 dump 方法对过程变量进行开发调试输出
 
 
-## 如：近期拜年应用
+## 如：近期拜年场景
 
 * 可使用 `php artisan bainian` 执行全部联系人群发拜年
 * [截图：启动拜年](https://github.com/webshiyue/laravel-wechat-robot-personal/blob/master/storage/sample/bainian.png) 
