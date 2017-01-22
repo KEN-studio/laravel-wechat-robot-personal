@@ -1,17 +1,14 @@
 # 私人微信机器人 php 版
 
-* 在 Laravel 框架下
-* 可使用 `artisan` command 执行
-* 可灵活自定义的微信机器人
-
 ## 特性
 
-1. 直接在 Terminal 下使用命令 `php artisan vbot` 执行
-2. 玩法可通过自写 `command` 充分自定义
-3. 文件存储将自动生成在 `storage/vbot` 目录下
-4. 不同微信号，按不同子目录区分存储资源文件
-5. 可使用图灵机器人回复，根据微信号区分用户以自动关联上下文语义
-6. 受益于 laravel 的 artisan 特性，可使用 dump 方法对过程变量进行开发调试输出
+* 功能可灵活自定义
+* 直接在 Terminal 下使用命令 `php artisan vbot` 执行
+* 玩法还可以通过自写 `command` 充分自定义
+* 文件存储将自动生成在 `storage/vbot` 目录下
+* 不同微信号，按不同子目录区分存储资源文件
+* 可使用图灵机器人回复，根据微信号区分用户以自动关联上下文语义
+* 受益于 laravel 的 artisan 特性，可使用 dump 方法对过程变量进行开发调试输出
 
 ## 环境
 
@@ -23,7 +20,10 @@
 git clone https://github.com/webshiyue/laravel-wechat-robot-personal.git
 cd vbot
 composer install
+php artisan key:generate
 ```
+
+按 .env.sample 适度自定义 .env 还可有更多灵活空间
 
 ## windows 推荐
 1. windows 可考虑使用 [UPUPW](http://www.upupw.net/) 快速构建 [Nginx + php7.0](http://www.upupw.net/Nginx/)
@@ -31,6 +31,8 @@ composer install
 
 
 ## 可响应和操作的行为
+
+与组件 [HanSon/vbot](https://github.com/HanSon/vbot/wiki) 同步
 
 - [ ] 消息处理
   - [x] 文字
@@ -77,7 +79,7 @@ composer install
 
 ## 关键组件与基础框架
 
-1. 关键组件 [hanson/vbot](https://github.com/HanSon/vbot) 作者 [Hanson](https://github.com/HanSon)
+1. 关键组件 [HanSon/vbot](https://github.com/HanSon/vbot) 作者 [HanSon](https://github.com/HanSon) 组件[Wiki](https://github.com/HanSon/vbot/wiki)
 2. 基础框架 [laravel/laravel](https://github.com/laravel/laravel) 当前版本 v5.3
 
 ## 共开脑洞与项目共建
