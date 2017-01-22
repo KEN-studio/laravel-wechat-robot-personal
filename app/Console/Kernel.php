@@ -30,7 +30,12 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\Robot::class,
+        Commands\Vbot::class,
+        Commands\Standby::class,
+        Commands\Debug::class,
+
+        Commands\Bainian::class,
+        Commands\Test::class,
     ];
 
     /**

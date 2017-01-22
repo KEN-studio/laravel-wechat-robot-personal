@@ -2,10 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
+use Cache;
 use Carbon\Carbon;
-use Hanson\Vbot\Foundation\Vbot;
-use Hanson\Vbot\Message\Entity\Message as VbotMessage;
 use Hanson\Vbot\Message\Entity\Image as VbotImage;
 use Hanson\Vbot\Message\Entity\Text as VbotText;
 use Hanson\Vbot\Message\Entity\Emoticon as VbotEmoticon;
@@ -20,39 +18,21 @@ use Hanson\Vbot\Message\Entity\Share as VbotShare;
 use Hanson\Vbot\Message\Entity\Touch as VbotTouch;
 use Hanson\Vbot\Message\Entity\RequestFriend as VbotRequestFriend;
 
-class Robot extends Command
+class Standby extends VbotBaseCommand
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'vbot';
+    protected $signature = 'standby';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'vbot Command';
-
-    /**
-     * 可执行的任务
-     *
-     * @var array
-     */
-    protected $tasks = [
-        'debug',
-        'mass',
-        'standby',
-    ];
-
-    protected $vbot;
-    protected $vbotStoragePath;
-    protected $vbotDebugMode;
-    protected $process;
-    protected $wechatUserId;
-    protected $wechatNickname;
+    protected $description = '一般守护';
 
     /**
      * Create a new command instance.
@@ -60,6 +40,8 @@ class Robot extends Command
     public function __construct()
     {
         parent::__construct();
+
+        $this->tasks[] = ['name' => 'debug', 'description' => '调试'];
     }
 
     /**
@@ -67,95 +49,9 @@ class Robot extends Command
      */
     public function handle()
     {
-        // 调试模式
-        $this->vbotDebugMode = $this->ask('debug mode', true);
+        $this->callHandle();
 
-        // 微信号
-        $this->wechatUserId = $this->ask('your WechatId', config('vbot.default_wechat_id'));
-        $this->wechatNickname = $this->ask('your WechatNickname', config('vbot.default_wechat_nickname'));
-
-        // 存储路径
-        $this->vbotStoragePath = storage_path('vbot/' . $this->wechatUserId);
-
-        // 任务
-        $task = $this->ask('which task', 'standby');
-
-        // 不在预定义的任务列表？
-        if (!in_array($task, $this->tasks)) {
-            $this->error("\n[ Task does not exist ]: {$task}");
-            return null;
-        }
-
-        // 执行确认
-        if (!$this->confirm("[ Run task ]: {$task}")) {
-            return null;
-        }
-
-        // VBOT 实例化
-        $this->vbot = new Vbot([
-            'tmp' => $this->vbotStoragePath,
-            'debug' => $this->vbotDebugMode,
-        ]);
-
-        // 调取任务
-        try {
-            $this->$task();
-        } catch (\Exception $e) {
-            $this->error("[Error #.{$e->getCode()}] Line.{$e->getLine()} {$e->getMessage()}");
-        }
-
-        // 其它设备登录，网页版微信退出
-        $this->vbot->server->setExitHandler(function () {
-            $this->warn('其他设备登录');
-        });
-
-        // 异常退出
-        $this->vbot->server->setExceptionHandler(function () {
-            $this->warn('异常退出');
-        });
-
-        // VBOT 启动工作
-        $this->vbot->server->run();
-    }
-
-    /**
-     * 调试命令
-     */
-    public function debug()
-    {
-        if (!$this->confirm('群发确认')) {
-            return null;
-        }
-
-        $this->vbot->server->setCustomerHandler(function () {
-
-            contact()->each(function ($contact) {
-                $this->warn("{$contact['UserName']} : {$contact['Alias']}: {$contact['NickName']} : {$contact['RemarkName']}");
-            });
-
-            exit();
-        });
-    }
-
-    /**
-     * 群发测试，随机时间间隔
-     */
-    public function mass()
-    {
-        $this->vbot->server->setCustomerHandler(function () {
-
-            $text = "测试 ".Carbon::now()->format('Y-m-d H:i:s');
-
-            contact()->each(function ($contact) use ($text) {
-                $this->warn("微信名：{$contact['NickName']}\n备注名：{$contact['RemarkName']}");
-
-                sleep(rand(5, 15));
-
-                VbotText::Send($contact['UserName'], $text);
-            });
-
-            exit();
-        });
+        $this->tasks[] = ['name' => 'standby', 'description' => '一般守护'];
     }
 
     /**
@@ -167,8 +63,9 @@ class Robot extends Command
 
             // 被请求添加好友信息
             if ($message instanceof VbotRequestFriend) {
-                // 通知至一个微信群
-                $groupUsername = group()->getGroupsByNickname(config('vbot.default_wechat_groupname'), true)->first()['UserName'];
+
+                // 通知至一个预设的微信群
+                $groupUsername = group()->getGroupsByNickname($this->wechatGroupname, true)->first()['UserName'];
 
                 $tip = "{$message->info['UserName']} {$message->info['NickName']} 请求添加好友 \"{$message->info['Content']}\"";
 
@@ -230,7 +127,7 @@ class Robot extends Command
 
                                 return $reply;
 
-                            // 没直接提到我
+                                // 没直接提到我
                             } else {
 
                                 $this->warn("\n[ {$message->sender['NickName']} via {$message->from['NickName']} ]# {$message->content}");
@@ -349,29 +246,12 @@ class Robot extends Command
 
             // 手机点击聊天事件
             if ($message instanceof VbotTouch) {
-                dump($message);
+                $text = "点击测试 " . Carbon::now()->format('Y-m-d H:i:s');
 
-                VbotText::Send($message->msg['ToUserName'], "我点击了此聊天");
+                VbotText::Send($message->msg['ToUserName'], $text);
             }
 
             return false;
         });
-    }
-
-    /**
-     * 使用图灵机器人回复
-     *
-     * @param $str
-     * @param null $userId
-     * @return string
-     */
-    public function reply($str, $userId = null)
-    {
-        $data = [];
-        $data['key'] = config('turing.key');
-        $data['info'] = $str;
-        $userId ? ($data['userid'] = md5($userId)) : null;
-
-        return http()->post('http://www.tuling123.com/openapi/api', $data, true)['text'];
     }
 }
