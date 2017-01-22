@@ -1,5 +1,6 @@
 # 私人微信机器人 php 版
 
+
 ## 特性
 
 * 功能可灵活自定义
@@ -10,9 +11,11 @@
 * 可使用图灵机器人回复，根据微信号区分用户以自动关联上下文语义
 * 受益于 laravel 的 artisan 特性，可使用 dump 方法对过程变量进行开发调试输出
 
+
 ## 环境
 
-1. 环境 php >= 7.0
+环境 php >= 7.0
+
 
 # git clone 安装
 
@@ -25,9 +28,20 @@ php artisan key:generate
 
 按 .env.sample 适度自定义 .env 还可有更多灵活空间
 
-## windows 推荐
-1. windows 可考虑使用 [UPUPW](http://www.upupw.net/) 快速构建 [Nginx + php7.0](http://www.upupw.net/Nginx/)
-2. 在 windows 下推荐使用 mobaXterm 作为 Terminal
+
+## Windows 环境下的经验推荐
+
+1. 使用 [UPUPW](http://www.upupw.net/) 快速构建 [Nginx + php7.0](http://www.upupw.net/Nginx/)
+2. 使用 mobaXterm 作为 Terminal
+
+
+## 当前已定义的任务
+ 
+执行 artisan vbot 提示至 task 时可选用：
+
+* `standby` 启动待命，可按已写好的方式响应消息
+* `mass` 联系人群发（随机时间间隔 5-15 秒）
+* `test` 测试
 
 
 ## 可响应和操作的行为
@@ -77,22 +91,33 @@ php artisan key:generate
   
 - [ ] 命令行操作信息发送
 
+
 ## 关键组件与基础框架
 
 1. 关键组件 [HanSon/vbot](https://github.com/HanSon/vbot) 作者 [HanSon](https://github.com/HanSon) 组件[Wiki](https://github.com/HanSon/vbot/wiki)
 2. 基础框架 [laravel/laravel](https://github.com/laravel/laravel) 当前版本 v5.3
 
+
 ## 共开脑洞与项目共建
 
-1. 玩法与功能 Issue 请至 [webshiyue/laravel-wechat-robot-personal](https://github.com/webshiyue/laravel-wechat-robot-personal/issues)
-2. 关键组件的 Issue 请至 [Hanson/vbot/issues](https://github.com/HanSon/vbot/issues)
-3. 欢迎共开脑洞，请提 PR 时附带完整注释以便其它伙伴参与共建……
-4. 欢迎加入 [Hanson大侠](https://github.com/HanSon) 的 vBot 企鹅群：492548647
+1. 目前此项目只是简单的 vBot 组件在 Laravel 框架下的实例化，还有很大潜力有待挖掘
+2. 欢迎共开脑洞，请提 PR 时附带完整注释以便其它伙伴参与共建……
+3. 玩法与功能 Issue 请至 [webshiyue/laravel-wechat-robot-personal](https://github.com/webshiyue/laravel-wechat-robot-personal/issues)
+4. 关键组件的 Issue 请至 [Hanson/vbot/issues](https://github.com/HanSon/vbot/issues)
+5. 欢迎加入 vBot 作者 [Hanson](https://github.com/HanSon) 的企鹅群：492548647
+
 
 ## 其它
 
 1. 此为通过 cURL 调用网页版接口的个人版微信机器人（手机扫码登录）
 2. 如需 php 版的微信公众号SDK组件，可至 [EasyWechatSDK](https://github.com/overtrue/wechat) 或 [Laravel-Wechat拓展包](https://github.com/overtrue/laravel-wechat)
+
+
+## 感谢
+
+* 感谢 [Hanson](https://github.com/HanSon) 构建了基础组件 [HanSon/vbot](https://github.com/HanSon/vbot)
+* 感谢企鹅群 492548647 内所有伙伴的交流碰撞
+
 
 ## License
 

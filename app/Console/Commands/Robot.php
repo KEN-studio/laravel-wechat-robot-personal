@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Carbon\Carbon;
 use Hanson\Vbot\Foundation\Vbot;
 use Hanson\Vbot\Message\Entity\Message as VbotMessage;
 use Hanson\Vbot\Message\Entity\Image as VbotImage;
@@ -118,7 +119,7 @@ class Robot extends Command
     }
 
     /**
-     * 测试
+     * 调试命令
      */
     public function debug()
     {
@@ -143,10 +144,10 @@ class Robot extends Command
     {
         $this->vbot->server->setCustomerHandler(function () {
 
-            $text = "群发文本";
+            $text = "测试 ".Carbon::now()->format('Y-m-d H:i:s');
 
             contact()->each(function ($contact) use ($text) {
-                $this->warn("{$contact['UserName']} : {$contact['Alias']}: {$contact['NickName']} : {$contact['RemarkName']}");
+                $this->warn("微信名：{$contact['NickName']}\n备注名：{$contact['RemarkName']}");
 
                 sleep(rand(5, 15));
 
