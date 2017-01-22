@@ -45,11 +45,14 @@ php artisan key:generate
 
 ## 当前已定义的任务
  
-执行 artisan vbot 提示至 task 时可选用：
+`VbotBaseCommand.php` 是基类，如果你写新的 command ，继承它会比较方便。
 
-* `standby` 启动待命，可按已写好的方式响应消息
-* `mass` 联系人群发（随机时间间隔 5-15 秒）
-* `test` 测试
+现有的 command:
+
+* `artisan standby` 启动待命，可按已写好的方式响应消息
+* `artisan bainian` 联系人群发（随机时间间隔 5-15 秒）
+* `artisan debug` 调试
+* `artisan test` 测试（与 vbot 无关的测试写这里方便了）
 
 
 ## 可响应和操作的行为
