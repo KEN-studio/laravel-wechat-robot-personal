@@ -11,10 +11,17 @@
 * 可使用图灵机器人回复，根据微信号区分用户以自动关联上下文语义
 * 受益于 laravel 的 artisan 特性，可使用 dump 方法对过程变量进行开发调试输出
 
-## 近期拜年应用
 
-* 可使用 `php artisan bainian` 执行全部联系人群发拜年
-* 或者实现：点击对话自动发送 `预设的祝福`、联系人回复消息自动发送 `预设的回应`
+## 如：近期拜年应用
+
+可使用 `php artisan bainian` 执行全部联系人群发拜年
+
+![启动拜年]("https://github.com/webshiyue/laravel-wechat-robot-personal/blob/master/storage/sample/bainian.png")
+
+或者实现：点击对话自动发送 `预设的祝福`、联系人回复消息自动发送 `预设的回应`
+
+![拜年ing]("https://github.com/webshiyue/laravel-wechat-robot-personal/blob/master/storage/sample/bainian_ing.png")
+
 
 ## 环境
 

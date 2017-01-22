@@ -41,7 +41,7 @@ class Standby extends VbotBaseCommand
     {
         parent::__construct();
 
-        $this->tasks[] = ['name' => 'debug', 'description' => '调试'];
+        $this->tasks[] = ['name' => 'standby', 'description' => '一般守护'];
     }
 
     /**
@@ -50,8 +50,6 @@ class Standby extends VbotBaseCommand
     public function handle()
     {
         $this->callHandle();
-
-        $this->tasks[] = ['name' => 'standby', 'description' => '一般守护'];
     }
 
     /**
